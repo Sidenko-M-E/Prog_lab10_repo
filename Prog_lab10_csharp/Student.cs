@@ -161,6 +161,61 @@ namespace Prog_lab6
 			}
 		}
 
+		//Methods with Exceptions
+		public void HardSetCourse(int buf)
+		{
+			if (buf < 0 || buf > 6)
+				throw new Exception("Invalid range of number.");
+			else
+				course = buf;
+
+		}
+		public void HardSetEduProg(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			eduProg = new string(bufString.ToCharArray());
+		}
+		public void HardSetGroup(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			group = new string(bufString.ToCharArray());
+		}
+		public void HardSetFacultyName(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			facultyName = new string(bufString.ToCharArray());
+		}
+
 		//Methods
 		public bool SetCourse(int buf)
 		{
@@ -257,40 +312,76 @@ namespace Prog_lab6
 			return (outputString);
 		}
 
-		public bool Read()
+		public void Read()
 		{
 			Student check = new Student();
 			int bufInt;
+			bool readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter course:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetCourse(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter education programm:\n");
-			if (check.SetEduProg(Console.ReadLine()))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter education programm:\n");
+				try
+				{
+					check.HardSetEduProg(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter group:\n");
+				try
+				{
+					check.HardSetGroup(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter group:\n");
-			if (check.SetGroup(Console.ReadLine()))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter faculty name:\n");
+				try
+				{
+					check.HardSetFacultyName(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{ 
+					Console.WriteLine(ex.Message); 
+				}
+					
+			}
 
-
-			Console.Write("Enter faculty name:\n");
-			if (check.SetFacultyName(Console.ReadLine()))
-				return (true);
-
-
-			Console.Write("Enter course:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetCourse(bufInt))
-				return (true);
-
-
-			if (check.humanField.Read())
-				return (true);
-			
+			check.humanField.Read();
 
 			SetAll(check.GetCourse(), check.GetEduProg(), check.GetGroup(),
 			check.GetFacultyName(), check.humanField);
-			return (false);
 		}
 		public void Display()
 		{

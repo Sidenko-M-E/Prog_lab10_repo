@@ -152,6 +152,45 @@ namespace Prog_lab6
 			}
 		}
 
+		//Methods with Exceptions
+		public void HardSetWorkExp(int buf)
+		{
+			if (buf < 0 || buf > 60)
+				throw new Exception("Invalid range of number.");
+			else
+				workExp = buf;
+		}
+		public void HardSetDegree(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~`";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			degree = new string(bufString.ToCharArray());
+		}
+		public void HardSetFacultyName(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			facultyName = new string(bufString.ToCharArray());
+		}
+
 		//Methods
 		public bool SetWorkExp(int buf)
 		{
@@ -246,36 +285,61 @@ namespace Prog_lab6
 			return (operatorTeacher);
 		}
 
-		public bool Read()
+		public void Read()
 		{
 			Teacher check = new Teacher();
 			int bufInt;
+			bool readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter working experience:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetWorkExp(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter scientific degree:\n");
-			if (check.SetDegree(Console.ReadLine()))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter scientific degree:\n");
+				try
+				{
+					check.HardSetDegree(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter faculty name:\n");
+				try
+				{
+					check.HardSetFacultyName(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
 
-			Console.Write("Enter faculty name:\n");
-			if (check.SetFacultyName(Console.ReadLine()))
-				return (true);
+			}
 
+			check.humanField.Read();
 
-			Console.Write("Enter working experience:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetWorkExp(bufInt))
-				return (true);
-
-
-			if (check.humanField.Read())
-				return (true);
-
-
-			this.SetAll(check.GetWorkExp(), check.GetDegree(),
+			SetAll(check.GetWorkExp(), check.GetDegree(),
 			check.GetFacultyName(), check.humanField);
-			return (false);
-
 		}
 		public void Display()
 		{

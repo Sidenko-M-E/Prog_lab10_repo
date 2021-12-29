@@ -14,65 +14,8 @@ namespace Prog_lab6
 		private int quantityOfDoctors;
 		private int quantityOfDisciplines;
 
-		//Constructors
-		public Faculty()
-		{
-			facultyName = "unstated";
-			quantityOfStudents = 0;
-			quantityOfBachelors = 0;
-			quantityOfMasters = 0;
-			quantityOfTeachers = 0;
-			quantityOfCandidates = 0;
-			quantityOfDoctors = 0;
-			quantityOfDisciplines = 0;
-		}
-		public Faculty(string bufFacultyName)
-		{
-			facultyName = "unstated";
-			quantityOfStudents = 0;
-			quantityOfBachelors = 0;
-			quantityOfMasters = 0;
-			quantityOfTeachers = 0;
-			quantityOfCandidates = 0;
-			quantityOfDoctors = 0;
-			quantityOfDisciplines = 0;
-
-			SetFacultyName(bufFacultyName);
-		}
-		public Faculty(string bufFacultyName, int studentsQuantity, int bachelorsQuantity, int mastersQuantity,
-	int teachersQuantity, int candidatesQuantity, int doctorsQuantity, int disciplinesQuantity)
-		{
-			Faculty check = new Faculty();
-
-			if (check.SetFacultyName(bufFacultyName) || check.SetQuantityOfStudents(studentsQuantity) ||
-				check.SetQuantityOfBachelors(bachelorsQuantity) || check.SetQuantityOfMasters(mastersQuantity) ||
-				check.SetQuantityOfTeachers(teachersQuantity) || check.SetQuantityOfCandidates(candidatesQuantity) ||
-				check.SetQuantityOfDoctors(doctorsQuantity) || check.SetQuantityOfDisciplines(disciplinesQuantity))
-			{
-				facultyName = "unstated";
-				quantityOfStudents = 0;
-				quantityOfBachelors = 0;
-				quantityOfMasters = 0;
-				quantityOfTeachers = 0;
-				quantityOfCandidates = 0;
-				quantityOfDoctors = 0;
-				quantityOfDisciplines = 0;
-			}
-			else
-			{
-				SetFacultyName(bufFacultyName);
-				quantityOfStudents = studentsQuantity;
-				quantityOfBachelors = bachelorsQuantity;
-				quantityOfMasters = mastersQuantity;
-				quantityOfTeachers = teachersQuantity;
-				quantityOfCandidates = candidatesQuantity;
-				quantityOfDoctors = doctorsQuantity;
-				quantityOfDisciplines = disciplinesQuantity;
-			}
-		}
-
 		//Properties
-		public string FacultyName 
+		public string FacultyName
 		{
 			get
 			{
@@ -184,6 +127,129 @@ namespace Prog_lab6
 			}
 		}
 
+		//Constructors
+		public Faculty()
+		{
+			facultyName = "unstated";
+			quantityOfStudents = 0;
+			quantityOfBachelors = 0;
+			quantityOfMasters = 0;
+			quantityOfTeachers = 0;
+			quantityOfCandidates = 0;
+			quantityOfDoctors = 0;
+			quantityOfDisciplines = 0;
+		}
+		public Faculty(string bufFacultyName)
+		{
+			facultyName = "unstated";
+			quantityOfStudents = 0;
+			quantityOfBachelors = 0;
+			quantityOfMasters = 0;
+			quantityOfTeachers = 0;
+			quantityOfCandidates = 0;
+			quantityOfDoctors = 0;
+			quantityOfDisciplines = 0;
+
+			SetFacultyName(bufFacultyName);
+		}
+		public Faculty(string bufFacultyName, int studentsQuantity, int bachelorsQuantity, int mastersQuantity,
+	int teachersQuantity, int candidatesQuantity, int doctorsQuantity, int disciplinesQuantity)
+		{
+			Faculty check = new Faculty();
+
+			if (check.SetFacultyName(bufFacultyName) || check.SetQuantityOfStudents(studentsQuantity) ||
+				check.SetQuantityOfBachelors(bachelorsQuantity) || check.SetQuantityOfMasters(mastersQuantity) ||
+				check.SetQuantityOfTeachers(teachersQuantity) || check.SetQuantityOfCandidates(candidatesQuantity) ||
+				check.SetQuantityOfDoctors(doctorsQuantity) || check.SetQuantityOfDisciplines(disciplinesQuantity))
+			{
+				facultyName = "unstated";
+				quantityOfStudents = 0;
+				quantityOfBachelors = 0;
+				quantityOfMasters = 0;
+				quantityOfTeachers = 0;
+				quantityOfCandidates = 0;
+				quantityOfDoctors = 0;
+				quantityOfDisciplines = 0;
+			}
+			else
+			{
+				SetFacultyName(bufFacultyName);
+				quantityOfStudents = studentsQuantity;
+				quantityOfBachelors = bachelorsQuantity;
+				quantityOfMasters = mastersQuantity;
+				quantityOfTeachers = teachersQuantity;
+				quantityOfCandidates = candidatesQuantity;
+				quantityOfDoctors = doctorsQuantity;
+				quantityOfDisciplines = disciplinesQuantity;
+			}
+		}
+
+
+		//Methods with Exceptions
+		public void HardSetFacultyName(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Caught an Exception!!! Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Caught an Exception!!! Input string contains invalid symbols");
+			}
+
+			facultyName = new string(bufString.ToCharArray());
+		}
+		public void HardSetQuantityOfStudents(int buf)
+		{
+			if (buf < 0 || buf > 1000)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfStudents = buf;
+		}
+		public void HardSetQuantityOfBachelors(int buf)
+		{
+			if (buf < 0 || buf > 1000)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfBachelors = buf;
+		}
+		public void HardSetQuantityOfMasters(int buf)
+		{
+			if (buf < 0 || buf > 1000)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfMasters = buf;
+		}
+		public void HardSetQuantityOfTeachers(int buf)
+		{
+			if (buf < 0 || buf > 100)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfTeachers = buf;
+		}
+		public void HardSetQuantityOfCandidates(int buf)
+		{
+			if (buf < 0 || buf > 100)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfCandidates = buf;
+		}
+		public void HardSetQuantityOfDoctors(int buf)
+		{
+			if (buf < 0 || buf > 100)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfDoctors = buf;
+		}
+		public void HardSetQuantityOfDisciplines(int buf)
+		{
+			if (buf < 0 || buf > 100)
+				throw new Exception("Invalid range of number.");
+			else
+				quantityOfDisciplines = buf;
+		}
 
 		//Methods
 		public bool SetFacultyName(string bufString)
@@ -308,7 +374,7 @@ namespace Prog_lab6
 				return (true);
 			else
 			{
-				SetFacultyName(bufFacultyName);
+				HardSetFacultyName(bufFacultyName);
 				SetStudentsInfo(studentsQuantity, bachelorsQuantity, mastersQuantity);
 				SetTeachersInfo(teachersQuantity, candidatesQuantity, doctorsQuanity);
 				SetQuantityOfDisciplines(discpilinesQuantity);
@@ -338,11 +404,23 @@ namespace Prog_lab6
 
 		//Processing methods
 		public double GetProcentOfMasters()
-		{return (((double)quantityOfMasters) / ((double)quantityOfStudents) * 100);}
+		{
+			if (quantityOfStudents == 0)
+				throw new DivideByZeroException("Caught an Exception!!! Can't divide by QuantityOfStudents = 0");
+			return (((double)quantityOfMasters) / ((double)quantityOfStudents) * 100);
+		}
 		public double GetProcentOfDoctors()
-		{return (((double)quantityOfDoctors) / ((double)quantityOfTeachers) * 100);}
+		{
+			if (quantityOfTeachers == 0)
+				throw new DivideByZeroException("Caught an Exception!!! Can't divide by QuantityOfTeachers = 0");
+			return (((double)quantityOfDoctors) / ((double)quantityOfTeachers) * 100);
+		}
 		public double GetStudToTeachRatio()
-		{return ((double)quantityOfStudents) / ((double)quantityOfTeachers);}
+		{
+			if (quantityOfTeachers == 0)
+				throw new DivideByZeroException("Caught an Exception!!! Can't divide by QuantityOfTeachers = 0");
+			return ((double)quantityOfStudents) / ((double)quantityOfTeachers);
+		}
 		public Faculty GetWithMoreCandidates(Faculty buf)
 		{
 			if (this.GetQuantityOfCandidates() >= buf.GetQuantityOfCandidates())
@@ -371,58 +449,132 @@ namespace Prog_lab6
 			Faculty check = new Faculty();
 			int bufInt;
 
-			Console.Write("Enter faculty name:\n");
-			if (check.SetFacultyName(Console.ReadLine()))
-				return (true);
+			bool readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter faculty name:\n");
+				try
+				{
+					check.HardSetFacultyName(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of students:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfStudents(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter quantity of students:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfStudents(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of bachelors:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfBachelors(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of masters:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfMasters(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter quantity of bachelors:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfBachelors(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of teachers:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfTeachers(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of candidates:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfCandidates(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter quantity of masters:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfMasters(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of doctors:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfDoctors(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-
-			Console.Write("Enter quantity of teachers:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfTeachers(bufInt))
-				return (true);
-
-
-			Console.Write("Enter quantity of candidates:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfCandidates(bufInt))
-				return (true);
-
-
-			Console.Write("Enter quantity of doctors:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfDoctors(bufInt))
-				return (true);
-
-
-			Console.Write("Enter quantity of disciplines:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetQuantityOfDisciplines(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter quantity of disciplines:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetQuantityOfDisciplines(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
 			SetAll(check.GetFacultyName(), check.GetQuantityOfStudents(), check.GetQuantityOfBachelors(),
 				check.GetQuantityOfMasters(), check.GetQuantityOfTeachers(), check.GetQuantityOfTeachers(),

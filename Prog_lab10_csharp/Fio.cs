@@ -190,6 +190,52 @@ namespace Prog_lab6
 			return (false);
 		}
 
+		public void HardSetSurname(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			surname = new string(bufString.ToCharArray());
+		}
+		public void HardSetName(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			name = new string(bufString.ToCharArray());
+		}
+		public void HardSetPatronymic(string bufString)
+		{
+			if (string.IsNullOrEmpty(bufString))
+				throw new FormatException("Input string is zero");
+
+			string invalidSymbStr = "!@#$%^&*()_+1234567890-=\";:?*,./'][{}<>~` ";
+			char[] invalidSymbols = invalidSymbStr.ToCharArray();
+			foreach (char symb in invalidSymbols)
+			{
+				if (bufString.IndexOf(symb) != (-1))
+					throw new FormatException("Input string contains invalid symbols");
+			}
+
+			patronymic = new string(bufString.ToCharArray());
+		}
+
 		public string GetSurname()
 		{
 			string outputString = new string(surname.ToCharArray());
@@ -206,29 +252,57 @@ namespace Prog_lab6
 			return (outputString);
 		}
 
-		public bool Read()
+		public void Read()
 		{
 			Fio check = new Fio();
+			bool readFlag = true;
+			while (readFlag) 
+			{
+				Console.Write("Enter surname:\n");
+				try
+				{
+					check.HardSetSurname(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter surname:\n");
-			if (check.SetSurname(Console.ReadLine()))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter name:\n");
+				try
+				{
+					check.HardSetName(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-
-			Console.Write("Enter name:\n");
-			if (check.SetName(Console.ReadLine()))
-				return (true);
-
-
-			Console.Write("Enter patronymic:\n");
-			if (check.SetPatronymic(Console.ReadLine()))
-				return (true);
-
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter patronymic:\n");
+				try
+				{
+					check.HardSetPatronymic(Console.ReadLine());
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
 			SetSurname(check.GetSurname());
 			SetName(check.GetName());
 			SetPatronymic(check.GetPatronymic());
-			return (false);
 		}
 		public void Display()
 		{

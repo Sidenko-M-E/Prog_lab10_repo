@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 
 namespace Prog_lab6
 {
@@ -133,6 +132,47 @@ namespace Prog_lab6
 			}
 		}
 
+		//Methods with Exceptions
+		public void HardSetId(int buf)
+		{
+			if (buf < 0 || buf > 9999)
+				throw new Exception("Invalid range of number.");
+			else
+				id = buf;
+		}
+		public void HardSetAge(int buf)
+		{
+			if (buf < 0 || buf > 200)
+				throw new Exception("Invalid range of number.");
+			else
+				age = buf;
+		}
+		public void HardSetHeight(int buf)
+		{
+			if (buf < 40 || buf > 300)
+				throw new Exception("Invalid range of number.");
+			else
+				height = buf;
+		}
+		public void HardSetWeight(double buf)
+		{
+			//round *.* format to *.00 format 
+			buf = Math.Round(buf, 2, MidpointRounding.AwayFromZero);
+			if (buf < 0 || buf > 650)
+				throw new Exception("Invalid range of number.");
+			else
+				weight = buf;
+		}
+		public void HardSetGender(char buf)
+		{
+			if (buf == 'M' || buf == 'F')
+			{
+				gender = buf;
+			}
+			else
+				throw new Exception("Invalid symbol.");
+		}
+
 		//Methods
 		public bool SetId(int buf)
 		{
@@ -216,56 +256,98 @@ namespace Prog_lab6
 		public char GetGender()
 		{ return (gender); }
 
-		public bool Read()
+		public void Read()
 		{
 			Human check = new Human();
 			int bufInt;
 			double bufDouble;
 			char bufChar;
 
-			Console.Write("Enter id:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetId(bufInt))
-				return (true);
+			bool readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter id:\n");
+                try
+                {
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetId(bufInt);
+					readFlag = false;
+				}
+                catch (Exception ex)
+                {
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter age:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetAge(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter age:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetAge(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter height:\n");
+				try
+				{
+					bufInt = int.Parse(Console.ReadLine());
+					check.HardSetHeight(bufInt);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter weight:\n");
+				try
+				{
+					bufDouble = double.Parse(Console.ReadLine());
+					check.HardSetWeight(bufDouble);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-			Console.Write("Enter height:\n");
-			if (!int.TryParse(Console.ReadLine(), out bufInt))
-				return (true);
-			if (check.SetHeight(bufInt))
-				return (true);
+			readFlag = true;
+			while (readFlag)
+			{
+				Console.Write("Enter gender:\n");
+				try
+				{
+					bufChar = char.Parse(Console.ReadLine());
+					check.HardSetGender(bufChar);
+					readFlag = false;
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(ex.Message);
+				}
+			}
 
-
-			Console.Write("Enter weight:\n");
-			if (!double.TryParse(Console.ReadLine(), NumberStyles.AllowDecimalPoint, CultureInfo.CreateSpecificCulture("fr-FR"), out bufDouble))
-				return (true);
-			if (check.SetWeight(bufDouble))
-				return (true);
-
-
-			Console.Write("Enter gender:\n");
-			if (!char.TryParse(Console.ReadLine(), out bufChar))
-				return (true);
-			if (check.SetGender(bufChar))
-				return (true);
-
-
-			if (check.fioField.Read())
-				return (true);
-
+			check.fioField.Read();
 
 			SetAll(check.GetId(), check.GetAge(), 
 				check.GetHeight(), check.GetWeight(), 
 				check.GetGender(), check.fioField);
-			return (false);
 		}
 		public void Display()
 		{

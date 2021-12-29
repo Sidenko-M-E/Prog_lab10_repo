@@ -7,6 +7,7 @@ namespace Prog_lab6
 		static void Main(string[] args)
 		{
 			Console.Write("--------Fio class--------\n");
+			/*
 			Console.Write("------Constructors-------\n");
 			Fio fio1 = new Fio();
 			fio1.Display();
@@ -22,13 +23,14 @@ namespace Prog_lab6
 				arrFio[i] = new Fio("stated");
 				arrFio[i].Display();
 			}
-
+			*/
+			
+			Console.Write("---Read method---\n");
+			Fio myFio = new Fio();
+			myFio.Read();
+			myFio.Display();
+				
 			/*
-			Console.Write("\n---Read method---\n");
-			if (!myFio.Read())
-				myFio.Display();
-			else
-				Console.Write("error\n");
 			Console.Write("\n------Set methods-------\n");
 			if ((myFio.SetSurname("Ivanov")) || (myFio.SetName("Ivan")) || (myFio.SetPatronymic("Ivanovich")))
 				Console.Write("error\n");
@@ -77,6 +79,7 @@ namespace Prog_lab6
 			*/
 
 			Console.Write("\n--------Human class--------\n");
+			/*
 			Console.Write("------Constructors-------\n");
 			Human human1 = new Human();
 			human1.Display();
@@ -92,13 +95,13 @@ namespace Prog_lab6
 				arrHuman[i] = new Human(i);
 				arrHuman[i].Display();
 			}
+			*/
+			Console.Write("------Read method------\n");
+			Human myHuman = new Human();
+			myHuman.Read();
+			myHuman.Display();
+				
 			/*
-			Console.Write("\n------Read method------\n");
-			if (myHuman.Read())
-				Console.Write("error\n");
-			else
-				myHuman.Display();
-
 			Console.Write("\n------Set methods-------\n");
 			if (myHuman.SetId(1999) || myHuman.SetAge(27) || myHuman.SetHeight(180) ||
 				myHuman.SetWeight(80.890) || myHuman.SetGender('M'))
@@ -124,6 +127,7 @@ namespace Prog_lab6
 
 
 			Console.Write("\n--------Student class--------\n");
+			/*
 			Console.Write("------Constructors-------\n");
 			Student student1 = new Student();
 			student1.Display();
@@ -139,20 +143,14 @@ namespace Prog_lab6
 				arrStudent[i] = new Student(human2);
 				arrStudent[i].Display();
 			}
-			//Console.Write("-------init method-------\n");
-			//Student myStudent = new Student();
+			*/
+
+			Console.Write("------Read method------\n");
+			Student myStudent = new Student();
+			myStudent.Read();
+			myStudent.Display();
+
 			/*
-			if (myStudent.Init(2, "Bachelor", "PI-03", "FoIT", myHuman))
-				Console.Write("error\n");
-			else
-				myStudent.Display();
-
-			Console.Write("\n------read method------\n");
-			if (myStudent.Read())
-				Console.Write("error\n");
-			else
-				myStudent.Display();
-
 			Console.Write("\n------Set methods-------\n");
 			if (myStudent.SetCourse(4) || myStudent.SetEduProg("Master") ||
 				myStudent.SetGroup("CS-91") ||
@@ -178,6 +176,7 @@ namespace Prog_lab6
 
 
 			Console.Write("\n--------Teacher class--------\n");
+			/*
 			Console.Write("------Constructors-------\n");
 			Teacher teacher1 = new Teacher();
 			teacher1.Display();
@@ -193,20 +192,14 @@ namespace Prog_lab6
 				arrTeacher[i] = new Teacher(human2);
 				arrTeacher[i].Display();
 			}
-			//Console.Write("-------init method-------\n");
-			//Teacher myTeacher = new Teacher();
+			*/
+
+			Console.Write("------Read method------\n");
+			Teacher myTeacher = new Teacher();
+			myTeacher.Read();
+			myTeacher.Display();
+
 			/*
-			if (myTeacher.Init(40, "Candidate of Mathematical Sciences", "FoIT", myHuman))
-				Console.Write("error\n");
-			else
-				myTeacher.Display();
-
-			Console.Write("\n------read method------\n");
-			if (myTeacher.Read())
-				Console.Write("error\n");
-			else
-				myTeacher.Display();
-
 			Console.Write("\n------Set methods-------\n");
 			if (myTeacher.SetWorkExp(30) || myTeacher.SetDegree("Doctor of Mathematical Sciences") || myTeacher.SetFacultyName("SMTH"))
 				Console.Write("error\n");
@@ -258,6 +251,7 @@ namespace Prog_lab6
 			*/
 
 			Console.Write("\n--------Faculty class--------\n");
+			/*
 			Console.Write("------Constructors-------\n");
 			Faculty faculty1 = new Faculty();
 			faculty1.Display();
@@ -273,14 +267,8 @@ namespace Prog_lab6
 				arrFaculty[i] = new Faculty("stated");
 				arrFaculty[i].Display();
 			}
-			//Console.Write("-------Init method-------\n");
-			//Faculty myFaculty = new Faculty();
+			*/
 			/*
-			if (myFaculty.Init("FoIT", 180, 145, 35, 40, 20, 5, 70))
-				Console.Write("error\n");
-			else
-				myFaculty.Display();
-
 			Console.Write("\n------Shortcut-set methods-------\n");
 			myFaculty.SetStudentsInfo(300, 270, 30);
 			myFaculty.SetTeachersInfo(40, 33, 7);
@@ -288,18 +276,25 @@ namespace Prog_lab6
 				Console.Write("Error\n");
 			else
 				myFaculty.Display();
-
-			Console.Write("\n------Read method-------\n");
-			if (myFaculty.Read())
-				Console.Write("error\n");
-			else
-				myFaculty.Display();
-
-			Console.Write("\n----processing by methods----\n");
-			Console.Write("Procent of masters on faculty: {0:f2}\n", myFaculty.GetProcentOfMasters());
-			Console.Write("Procent of doctors on faculty: {0:f2}\n", myFaculty.GetProcentOfDoctors());
-			Console.Write("Students to teachers quantity: {0:f2}\n", myFaculty.GetStudToTeachRatio());
 			*/
+
+			Console.Write("------Read method------\n");
+			Faculty myFaculty = new Faculty();
+			myFaculty.Read();
+			myFaculty.Display();
+
+			try
+			{
+				Console.Write("\n----processing by methods----\n");
+				Console.Write("Procent of masters on faculty: {0:f2}\n", myFaculty.GetProcentOfMasters());
+				Console.Write("Procent of doctors on faculty: {0:f2}\n", myFaculty.GetProcentOfDoctors());
+				Console.Write("Students to teachers quantity: {0:f2}\n", myFaculty.GetStudToTeachRatio());
+			}
+			catch (DivideByZeroException ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+
 			/*
 			Console.Write("------set-properties demo-------\n");
 			myFaculty.FacultyName = "FoHS";
