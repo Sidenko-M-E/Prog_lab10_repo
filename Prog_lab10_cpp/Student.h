@@ -12,6 +12,11 @@ private:
 public:
 	Human humanField;
 
+	void HardSetCourse(int buf);
+	void HardSetEduProg(string bufString);
+	void HardSetGroup(string bufString);
+	void HardSetFacultyName(string bufString);
+
 	bool SetCourse(int buf);
 	bool SetEduProg(string bufString);
 	bool SetGroup(string bufString);
@@ -26,6 +31,6 @@ public:
 	Student(Human bufHuman);
 	Student(int bufCourse, string bufEduProg, string bufGroup, string bufFacultyName, Human bufHuman);
 
-	bool Read();
+	void Read();
 	void Display();
 };

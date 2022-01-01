@@ -2,6 +2,82 @@
 #include <iostream>
 
 
+void Faculty::HardSetFacultyName(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	if (facultyName)
+		delete facultyName;
+	facultyName = NULL;
+	facultyName = new char[strlen(bufString.c_str()) + 1];
+	strcpy(facultyName, bufString.c_str());
+}
+
+void Faculty::HardSetQuantityOfStudents(int buf)
+{
+	if (buf < 0 || buf > 1000)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfStudents = buf;
+}
+
+void Faculty::HardSetQuantityOfBachelors(int buf)
+{
+	if (buf < 0 || buf > 1000)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfBachelors = buf;
+}
+
+void Faculty::HardSetQuantityOfMasters(int buf)
+{
+	if (buf < 0 || buf > 1000)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfMasters = buf;
+}
+
+void Faculty::HardSetQuantityOfTeachers(int buf)
+{
+	if (buf < 0 || buf > 100)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfTeachers = buf;
+}
+
+void Faculty::HardSetQuantityOfCandidates(int buf)
+{
+	if (buf < 0 || buf > 100)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfDoctors = buf;
+}
+
+void Faculty::HardSetQuantityOfDoctors(int buf)
+{
+	if (buf < 0 || buf > 100)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfDoctors = buf;
+}
+
+void Faculty::HardSetQuantityOfDisciplines(int buf)
+{
+	if (buf < 0 || buf > 100)
+		throw invalid_argument("Invalid range of number.");
+	else
+		quantityOfDisciplines = buf;
+}
+
+
 bool Faculty::SetFacultyName(string bufString)
 {
 	if (bufString.empty())
@@ -171,16 +247,22 @@ int Faculty::GetQuantityOfDisciplines()
 
 double Faculty::GetProcentOfMasters()
 {
+	if (quantityOfStudents == 0)
+		throw invalid_argument("Can't divide by QuantityOfStudents = 0");
 	return(((double)quantityOfMasters) / ((double)quantityOfStudents) * 100);
 }
 
 double Faculty::GetProcentOfDoctors()
 {
+	if (quantityOfStudents == 0)
+		throw invalid_argument("Can't divide by QuantityOfTeachers = 0");
 	return(((double)quantityOfDoctors) / ((double)quantityOfTeachers) * 100);
 }
 
 double Faculty::GetStudToTeachRatio()
 {
+	if (quantityOfStudents == 0)
+		throw invalid_argument("Can't divide by QuantityOfTeachers = 0");
 	return(((double)quantityOfStudents) / ((double)quantityOfTeachers));
 }
 
@@ -304,47 +386,134 @@ bool Faculty::Read()
 {
 	Faculty check;
 	string bufString;
-	int bufInt;
 
-	cout << "Enter faculty name:\n";
-	getline(cin, bufString);
-	if (check.SetFacultyName(bufString))
-		return (true);
+	bool readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter faculty name:" << endl;
+			getline(cin, bufString);
+			check.HardSetFacultyName(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of students:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfStudents(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of bachelors:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfBachelors(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of masters:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfMasters(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 	
-	cout << "Enter quantity of students:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfStudents(bufInt))
-		return (true);
-			
-	cout << "Enter quantity of bachelors:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfBachelors(bufInt))
-		return (true);
-					
-	cout << "Enter quantity of masters:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfMasters(bufInt))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of teachers:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfTeachers(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of candidates:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfCandidates(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of doctors:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfDoctors(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 								
-	cout << "Enter quantity of teachers:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfTeachers(bufInt))
-		return (true);
-									
-	cout << "Enter quantity of candidates:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfCandidates(bufInt))
-		return (true);
-			
-	cout << "Enter quantity of doctors:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfDoctors(bufInt))
-		return (true);
-													
-	cout << "Enter quantity of disciplines:\n";
-	cin >> bufInt;
-	if (check.SetQuantityOfDisciplines(bufInt))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter quantity of disciplines:" << endl;
+			getline(cin, bufString);
+			check.HardSetQuantityOfDisciplines(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 						
 	facultyName = new char[strlen(check.GetFacultyName().c_str()) + 1];
 	strcpy(facultyName, check.GetFacultyName().c_str());

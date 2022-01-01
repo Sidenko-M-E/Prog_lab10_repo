@@ -3,6 +3,44 @@
 #include <cmath>
 
 
+void Teacher::HardSetWorkExp(int buf)
+{
+	if (buf < 0 || buf > 60)
+		throw invalid_argument("Invalid range of number.");
+	else
+		workExp = buf;
+}
+
+void Teacher::HardSetDegree(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~`";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	degree = bufString;
+}
+
+void Teacher::HardSetFacultyName(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	facultyName = bufString;
+}
+
 bool Teacher::SetWorkExp(int buf)
 {
 	if (buf < 0 || buf > 60)
@@ -151,36 +189,65 @@ Teacher::Teacher(int bufWorkExp, string bufDegree, string bufFacultyName, Human 
 }
 
 
-bool Teacher::Read()
+void Teacher::Read()
 {
 	Teacher check;
-	int bufInt;
 	string bufString;
 
-	cout << "Enter working experience:\n";
-	cin >> bufInt;
-	cin.ignore();
-	if (check.SetWorkExp(bufInt))
-		return (true);
+	bool readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter working experience:" << endl;
+			getline(cin, bufString);
+			check.HardSetWorkExp(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter scientific degree:" << endl;
+			getline(cin, bufString);
+			check.HardSetDegree(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 				
-	cout << "Enter scientific degree:\n";
-	getline(cin, bufString);
-	if (check.SetDegree(bufString))
-		return (true);
-			
-	cout << "Enter faculty name:\n";
-	getline(cin, bufString);
-	if (check.SetFacultyName(bufString))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter faculty name:\n";
+			getline(cin, bufString);
+			check.HardSetFacultyName(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 	
-	if (check.humanField.Read())
-		return (true);
+	check.humanField.Read();
 
 	workExp = check.GetWorkExp();
 	degree = check.GetDegree();
 	facultyName = check.GetDegree();
 	humanField = check.humanField;
-	return(false);
 }
 
 void Teacher::Display()

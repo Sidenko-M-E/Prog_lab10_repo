@@ -10,6 +10,10 @@ private:
 	string patronymic;
 
 public:
+	void HardSetSurname(string bufString);
+	void HardSetName(string bufString);
+	void HardSetPatronymic(string bufString);
+
 	bool SetSurname(string bufString);
 	bool SetName(string bufString);
 	bool SetPatronymic(string bufString);
@@ -22,7 +26,6 @@ public:
 	Fio(string bufSurname);
 	Fio(string bufSurname, string bufName, string bufPatronymic);
 
-
-	bool Read();
+	void Read();
 	void Display();
 };

@@ -9,6 +9,7 @@
 int main()
 {
 	cout << "--------Fio class--------" << endl;
+	/*
 	cout << "------Constructors-------" << endl;
 	Fio fio1;
 	fio1.Display();
@@ -30,13 +31,14 @@ int main()
 	Fio arrayFio[3] = {filler = "first", filler = "second", filler = "third"};
 	for (int i = 0; i < 3; i++)
 		arrayFio[i].Display();
-	/*
+	*/
+	
 	cout << endl << "---Read method---" << endl;
-	if (!myFio.Read())
-		myFio.Display();
-	else
-		cout << "error" << endl;
-
+	Fio myFio;
+	myFio.Read();
+	myFio.Display();
+	
+	/*
 	cout << endl << "------Set methods-------" << endl;
 	if (myFio.SetSurname("Ivanov") || myFio.SetName("Ivan") || myFio.SetPatronymic("Ivanovich"))
 		cout << "error" << endl;
@@ -45,6 +47,7 @@ int main()
 	*/
 
 	cout << endl << "--------Human class--------" << endl;
+	/*
 	cout << "------Constructors-------" << endl;
 	Human human1;
 	human1.Display();
@@ -65,13 +68,14 @@ int main()
 	Human arrayHuman[3] = { 3, 4, 5};
 	for (int i = 0; i < 3; i++)
 		arrayHuman[i].Display();
-	/*
+	*/
+	
 	cout << "\n------Read method------\n";
-	if (myHuman.Read())
-		cout << "error\n";
-	else
-		myHuman.Display();
+	Human myHuman;
+	myHuman.Read();
+	myHuman.Display();
 
+	/*
 	cout << "\n------Set methods-------\n";
 	if (myHuman.SetId(1999) || myHuman.SetAge(27) || myHuman.SetHeight(180) ||
 		myHuman.SetWeight(80.890) || myHuman.SetGender('M'))
@@ -82,6 +86,7 @@ int main()
 
 	
 	cout << "\n--------Student class--------\n";
+	/*
 	cout << "------Constructors-------" << endl;
 	Student student1;
 	student1.Display();
@@ -102,13 +107,12 @@ int main()
 	Student arrayStudent[3] = {human1, human2, human3};
 	for (int i = 0; i < 3; i++)
 		arrayStudent[i].Display();
-	/*
+	*/
 	cout << "\n------Read method------\n";
-	if (myStudent.Read())
-		cout << "error\n";
-	else
-		myStudent.Display();
-
+	Student myStudent;
+	myStudent.Read();
+	myStudent.Display();
+	/*
 	cout << "\n------Set methods-------\n";
 	if (myStudent.SetCourse(4) || myStudent.SetEduProg("Master") || 
 		myStudent.SetGroup("CS-91") ||
@@ -120,6 +124,7 @@ int main()
 
 	
 	cout << "\n--------Teacher class--------\n";
+	/*
 	cout << "------Constructors-------" << endl;
 	Teacher teacher1;
 	teacher1.Display();
@@ -140,13 +145,12 @@ int main()
 	Teacher arrayTeacher[3] = { human1, human2, human3 };
 	for (int i = 0; i < 3; i++)
 		arrayTeacher[i].Display();
-	/*
+	*/
 	cout << "\n------Read method------\n";
-	if (myTeacher.Read())
-		cout << "error\n";
-	else
-		myTeacher.Display();
-
+	Teacher myTeacher;
+	myTeacher.Read();
+	myTeacher.Display();
+	/*
 	cout << "\n------Set methods-------\n";
 	if (myTeacher.SetWorkExp(30) || myTeacher.SetDegree("Doctor of Mathematical Sciences") || myTeacher.SetFacultyName("FoMS"))
 		cout << "error\n";
@@ -192,6 +196,7 @@ int main()
 	*/
 	
 	cout << "\n------Faculty class----------\n";
+	/*
 	cout << "------Constructors-------" << endl;
 	Faculty faculty1;
 	faculty1.Display();
@@ -238,26 +243,33 @@ int main()
 	cout << "\nState of origin object hasn't changed:\n";
 	dynamicFaculty2->Display();
 	cout << "It's a deep copy\n";
-
-
-	/*
+	*/
 	cout << "\n------Read method------\n";
-	if (myFaculty.Read())
-		cout << "error\n";
-	else
-		myFaculty.Display();
+	Faculty myFaculty;
+	myFaculty.Read();
+	myFaculty.Display();
 
+	try
+	{
+		cout << "\n----processing by functions----\n";
+		cout.setf(ios::fixed);
+		cout.precision(2);
+		cout << "Procent of masters on faculty: " << myFaculty.GetProcentOfMasters() << endl;
+		cout << "Procent of doctors on faculty: " << myFaculty.GetProcentOfDoctors() << endl;
+		cout << "Students to teachers ratio: " << myFaculty.GetStudToTeachRatio() << endl;
+		cout.unsetf(ios::fixed);
+	}
+	catch (const std::exception& ex)
+	{
+		cout << ex.what();
+	}
+	
+	
+	/*
 	cout << "\n------Shortcut-Set methods-------\n";
 	myFaculty.SetStudentsInfo(300, 270, 30);
 	myFaculty.SetTeachersInfo(40, 33, 7);
 	myFaculty.Display();
-	*/
-	/*
-	cout << "\n----processing by functions----\n";
-	cout.precision(2);
-	cout << "Procent of masters on faculty: " << myFaculty.GetProcentOfMasters() << endl;
-	cout << "Procent of doctors on faculty: " << myFaculty.GetProcentOfDoctors() << endl;
-	cout << "Students to teachers ratio: " << myFaculty.GetStudToTeachRatio() << endl;
 	*/
 	/*
 	cout << "\nLet's compare two faculties to find the one...\n";

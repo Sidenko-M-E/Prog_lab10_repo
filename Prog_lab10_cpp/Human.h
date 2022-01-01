@@ -12,6 +12,12 @@ private:
 public:
 	Fio fioField;
 
+	void HardSetId(int buf);
+	void HardSetAge(int buf);
+	void HardSetHeight(int buf);
+	void HardSetWeight(double buf);
+	void HardSetGender(char buf);
+
 	bool SetId(int buf);
 	bool SetAge(int buf);
 	bool SetHeight(int buf);
@@ -28,6 +34,6 @@ public:
 	Human(int bufId);
 	Human(int bufId, int bufAge, int bufHeight, double bufWeight, char bufGender, Fio bufFio);
 
-	bool Read();
+	void Read();
 	void Display();
 };

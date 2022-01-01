@@ -17,6 +17,15 @@ private:
 	int quantityOfDisciplines;
 
 public:
+	void HardSetFacultyName(string bufString);
+	void HardSetQuantityOfStudents(int buf);
+	void HardSetQuantityOfBachelors(int buf);
+	void HardSetQuantityOfMasters(int buf);
+	void HardSetQuantityOfTeachers(int buf);
+	void HardSetQuantityOfCandidates(int buf);
+	void HardSetQuantityOfDoctors(int buf);
+	void HardSetQuantityOfDisciplines(int buf);
+
 	bool SetFacultyName(string bufString);
 	bool SetQuantityOfStudents(int buf);
 	bool SetQuantityOfBachelors(int buf);

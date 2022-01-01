@@ -12,6 +12,10 @@ private:
 public:
 	Human humanField;
 
+	void HardSetWorkExp(int buf);
+	void HardSetDegree(string bufString);
+	void HardSetFacultyName(string bufString);
+
 	bool SetWorkExp(int buf);
 	bool SetDegree(string bufString);
 	bool SetFacultyName(string bufString);
@@ -30,6 +34,6 @@ public:
 	Teacher(Human bufHuman);
 	Teacher(int bufWorkExp, string bufDegree, string bufFacultyName, Human bufHuman);
 
-	bool Read();
+	void Read();
 	void Display();
 };

@@ -4,6 +4,47 @@
 #include <iostream>
 
 
+void Human::HardSetId(int buf)
+{
+	if (buf < 0 || buf > 9999)
+		throw invalid_argument("Invalid range of number.");
+	else
+		id = buf;
+}
+
+void Human::HardSetAge(int buf)
+{
+	if (buf < 0 || buf > 200)
+		throw invalid_argument("Invalid range of number.");
+	else
+		age = buf;
+}
+
+void Human::HardSetHeight(int buf)
+{
+	if (buf < 40 || buf > 300)
+		throw invalid_argument("Invalid range of number.");
+	else
+		height = buf;
+}
+
+void Human::HardSetWeight(double buf)
+{
+	buf = round(buf * 100) / 100;
+	if (buf < 0 || buf > 650)
+		throw invalid_argument("Invalid range of number.");
+	else
+		weight = buf;
+}
+
+void Human::HardSetGender(char buf)
+{
+	if (buf == 'M' || buf == 'F')
+		gender = buf;
+	else
+		throw invalid_argument("Invalid range of number.");
+}
+
 bool Human::SetId(int buf)
 {
 	if (buf < 0 || buf > 9999)
@@ -130,49 +171,102 @@ Human::Human(int bufId, int bufAge, int bufHeight, double bufWeight, char bufGen
 }
 
 
-bool Human::Read()
+void Human::Read()
 {
 	Human check;
-	int bufInt;
-	double bufDouble;
+	string bufString;
 	char bufChar;
 
-	cout << "Enter id:" << endl;
-	cin >> bufInt;	
-	if (check.SetId(bufInt))
-		return (true);
+	bool readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter id:" << endl;
+			getline(cin, bufString);
+			check.HardSetId(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter age:" << endl;
+			getline(cin, bufString);
+			check.HardSetAge(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 		
-	cout << "Enter age:" << endl;
-	cin >> bufInt;
-	if (check.SetAge(bufInt))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter height:" << endl;
+			getline(cin, bufString);
+			check.HardSetHeight(stoi(bufString));
+	
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 				
-	cout << "Enter height:" << endl;
-	cin >> bufInt;
-	if (check.SetHeight(bufInt))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter weight:" << endl;
+			getline(cin, bufString);
+			check.HardSetWeight(stod(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 			
-	cout << "Enter weight:" << endl;
-	cin >> bufDouble;	
-	if (check.SetWeight(bufDouble))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter gender:" << endl;
+			cin >> bufChar;
+			cin.ignore();
+			check.HardSetGender(bufChar);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 
-	cout << "Enter gender:" << endl;
-	cin >> bufChar;
-	cin.ignore();
-	if (check.SetGender(bufChar))
-		return(true);
-
-	if (check.fioField.Read())
-		return (true);
+	check.fioField.Read();
 
 	id = check.GetId();
 	age = check.GetAge();
 	height = check.GetHeight();
 	weight = check.GetWeight();
 	gender = check.GetGender();
-	fioField = check.fioField;
-	return(false);								
+	fioField = check.fioField;							
 }
 
 void Human::Display()

@@ -1,6 +1,59 @@
 #include "Student.h"
 #include <iostream>
 
+void Student::HardSetCourse(int buf)
+{
+	if (buf < 0 || buf > 6)
+		throw invalid_argument("Invalid range of number.");
+	else
+		course = buf;
+}
+
+void Student::HardSetEduProg(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	eduProg = bufString;
+}
+
+void Student::HardSetGroup(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	group = bufString;
+}
+
+void Student::HardSetFacultyName(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	facultyName = bufString;
+}
+
 bool Student::SetCourse(int buf)
 {
 	if (buf < 0 || buf > 6)
@@ -119,42 +172,83 @@ Student::Student(int bufCourse, string bufEduProg, string bufGroup, string bufFa
 	}
 }
 
-bool Student::Read()
+void Student::Read()
 {
 	Student check;
-	int bufInt;
 	string bufString;
 
-	cout << "Enter course:\n";
-	cin >> bufInt;
-	cin.ignore();
-	if (check.SetCourse(bufInt))
-		return (true);
+	bool readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter course:" << endl;
+			getline(cin, bufString);
+			check.HardSetCourse(stoi(bufString));
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter education programme:" << endl;
+			getline(cin, bufString);
+			check.HardSetEduProg(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 		
-	cout << "Enter education programm:\n";
-	getline(cin, bufString);
-	if (check.SetEduProg(bufString))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter group:" << endl;
+			getline(cin, bufString);
+			check.HardSetGroup(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 
-	cout << "Enter group:\n";
-	getline(cin, bufString);
-	if (check.SetGroup(bufString))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter faculty name:" << endl;
+			getline(cin, bufString);
+			check.HardSetFacultyName(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 				
-	cout << "Enter faculty name:\n";
-	getline(cin, bufString);
-	if (check.SetFacultyName(bufString))
-		return (true);
 
-	if (check.humanField.Read())
-		return (true);
+	check.humanField.Read();
 
 	course = check.GetCourse();
 	eduProg = check.GetEduProg();
 	group = check.GetGroup();
 	facultyName = check.GetFacultyName();
 	humanField = check.humanField;
-	return(false);
 }
 
 void Student::Display()

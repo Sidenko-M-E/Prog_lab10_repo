@@ -2,6 +2,51 @@
 #include <iostream>
 
 
+void Fio::HardSetSurname(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	surname = bufString;
+}
+
+void Fio::HardSetName(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	name = bufString;
+}
+
+void Fio::HardSetPatronymic(string bufString)
+{
+	if (bufString.empty())
+		throw logic_error("Input string is empty.");
+
+	char invalidSymbols[] = "!@#$%^&*()_+1234567890-=\"¹;:?*,./'][{}<>~` ";
+	for (char symb : invalidSymbols)
+	{
+		if (bufString.find(symb) != (-1))
+			throw invalid_argument("Input string contains invalid symbols.");
+	}
+
+	patronymic = bufString;
+}
+
 bool Fio::SetSurname(string bufString)
 { 
 	if (bufString.empty())
@@ -99,30 +144,62 @@ Fio::Fio(string bufSurname, string bufName, string bufPatronymic)
 	}
 }
 
-bool Fio::Read()
+void Fio::Read()
 {
 	Fio check;
 	string bufString;
 
-	cout << "Enter surname:" << endl;
-	getline(cin, bufString);
-	if (check.SetSurname(bufString))
-		return (true);
+	bool readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter surname:" << endl;
+			getline(cin, bufString);
+			check.HardSetSurname(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 
-	cout << "Enter name:" << endl;
-	getline(cin, bufString);
-	if (check.SetName(bufString))
-		return (true);
-
-	cout << "Enter patronymic:" << endl;
-	getline(cin, bufString);
-	if (check.SetPatronymic(bufString))
-		return (true);
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter name:" << endl;
+			getline(cin, bufString);
+			check.HardSetName(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
+	
+	readFlag = true;
+	while (readFlag)
+	{
+		try
+		{
+			cout << "\nEnter patronymic:" << endl;
+			getline(cin, bufString);
+			check.HardSetPatronymic(bufString);
+			readFlag = false;
+		}
+		catch (const std::exception& ex)
+		{
+			cout << ex.what();
+		}
+	}
 
 	surname = check.GetSurname();
 	name = check.GetName();
 	patronymic = check.GetPatronymic();
-	return (false);
 }
 
 void Fio::Display()
